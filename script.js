@@ -479,7 +479,9 @@ function openModal($modal) {
   const $backdrop = $modal.find('.modal__dark, .modal__blur');
   $modal.attr('data-modal-status', 'active');
   $modal.css('display', 'block');
-  scroll.stop();
+  scroll.stop = function () {
+  $('html, body').css('overflow', 'hidden');
+};
   gsap.to($backdrop, { opacity: 1, duration: 0.25, ease: 'power1.out' });
   gsap.to($modalContent, { y: '0%', opacity: 1, duration: 0.25, ease: 'sine.out', delay: 0.05 });
   $modal.find('.modal-scroll').removeAttr('data-lenis-prevent');
@@ -501,7 +503,9 @@ function closeModal($modal) {
   setTimeout(function () {
     $modal.attr('data-modal-status', 'not-active');
     $modal.css('display', 'none');
-    scroll.start();
+    scroll.start = function () {
+  $('html, body').css('overflow', '');
+};
   }, 300);
 
   console.log('Modal closed with animation');
